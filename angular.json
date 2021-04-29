@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "chat-ngrx"
+  "defaultProject": "chat-ngrx",
+  "cli": {
+    "analytics": false
+  }
 }

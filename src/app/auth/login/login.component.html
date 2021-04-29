@@ -1,0 +1,8 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+<input type="email">
+<input type="password">
+<input type="text">
+<button (click)="login()">Login</button>
+<div *ngIf="error$ | async">
+    <p>Su contraseña o usuario son incorrectos</p>
+</div>
