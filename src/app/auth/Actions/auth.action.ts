@@ -11,27 +11,27 @@ export enum AuthActionTypes {
 
 export class LoggedIn implements Action {
     readonly type = AuthActionTypes.LoggedIn;
-    constructor(public payload: { isLogin: boolean}) {}
+    constructor(public payload: { isLogin: boolean }) {}
 }
 
 export class LogoutAuth implements Action {
     readonly type = AuthActionTypes.LogoutAuth;
-    constructor(public payload: { isLogin: boolean}) {}
+    constructor(public payload: { isLogin: boolean }) {}
 }
 
 export class LoginUser implements Action {
     readonly type = AuthActionTypes.LoginUser;
-    constructor(public payload: { user: IUser}) {}
+    constructor(public payload: { user: IUser }) {}
 }
 
 export class LoggedUser implements Action {
     readonly type = AuthActionTypes.LoggedUser;
-    constructor(public payload: any) {}
+    constructor(public payload: { isLoading: boolean, error: boolean, user: IUser }) {}
 }
 
 export class LoginUserError implements Action {
     readonly type = AuthActionTypes.LoginUserError;
-    constructor(public payload: { error: string}) {}
+    constructor(public payload: { error: string }) {}
 }
 
 export type actions = 

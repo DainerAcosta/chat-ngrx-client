@@ -6,6 +6,11 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from "@angular/forms";
 import { MaterialModule } from "../material/material.module";
 
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { AuthEffects } from "./Effects/auth.effects";
+import * as fromAuth from "./Reducers/auth.reducer";
+
 
 @NgModule({
   declarations: [
@@ -15,7 +20,9 @@ import { MaterialModule } from "../material/material.module";
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    //StoreModule.forFeature('auth', fromAuth.AuthReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ]
 })
 export class AuthModule { }

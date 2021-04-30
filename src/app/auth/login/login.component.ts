@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/interfaces/IUser';
+import { Component, OnInit } from "@angular/core";
+import { IUser } from "src/app/interfaces/IUser";
 
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import * as Auth from "../Actions/auth.action";
 import * as fromAuth from "../../reducers/reducers";
 
@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('hola ngrx');
-    this.store.dispatch(new Auth.LoginUser({ user: this.user }))
+    this.store.dispatch(new Auth.LoginUser({ user: this.user }));
   }
 
 }

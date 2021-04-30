@@ -29,7 +29,7 @@ export interface State {
         console.log('entre al logged');
         return {
           ...state,
-          isLoading: true,
+          isLoading: false,
           tokens: action.payload,
         };
       case AuthActionTypes.LoginUserError:

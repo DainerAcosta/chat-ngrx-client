@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Action } from "@ngrx/store";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, mergeMap, tap } from "rxjs/operators";
+import { catchError, exhaustMap, map, tap } from "rxjs/operators";
+import { of } from "rxjs";
+import { AuthService } from "../Services/auth.service";
+import { Router } from "@angular/router";
 
 import { 
     AuthActionTypes,
@@ -11,8 +12,7 @@ import {
     LoginUserError
  } from "../Actions/auth.action";
 
- import { AuthService } from "../Services/auth.service";
-import { of } from "rxjs";
+
 
  @Injectable({
      providedIn: 'root' 
@@ -21,9 +21,9 @@ import { of } from "rxjs";
  export class AuthEffects {
 
     constructor(
-        private http: HttpClient,
         private actions$: Actions,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router,
     ) {}
 
     loginUserError$ = createEffect(() => {
@@ -31,7 +31,8 @@ import { of } from "rxjs";
             ofType<LoginUserError>(AuthActionTypes.LoginUserError),
             tap(v => console.log('LoggedAPI error', v.payload)),
             map(data => {
-                return {type: 'LOGIN_API_ERROR', payload: 'Email or password incorrect'};
+                console.log('ERROR', data)
+                return { type: 'LOGIN_API_ERROR', payload: data.payload.error };
             })
         );
     });
@@ -41,8 +42,9 @@ import { of } from "rxjs";
             ofType<LoginUser>(AuthActionTypes.LoginUser),
             tap(v => console.log('LoginUser effect', v)),
             map(action => action.payload),
-            exhaustMap(auth => {
-                return this.authService.login(auth.user)
+            exhaustMap((user: any) => {
+                console.log('esto essssssss', user);
+                return this.authService.login(user)
                             .pipe(
                                 map(response => new LoggedUser(response)),
                                 catchError(error => of(new LoginUserError(error))),
@@ -54,12 +56,9 @@ import { of } from "rxjs";
     LoggedUser$ = createEffect(() => {
         return this.actions$.pipe(
             ofType<LoggedUser>(AuthActionTypes.LoggedUser),
-            tap(v => console.log('LoggedUser payload', v.payload)),
-            map(data => {
-                console.log(data);
-                return { type: '', payload: data };
-            })
+            tap(v => /* this.router.navigate(['/chat']) */console.log('hola mundo'))
         )
-    })
+    },
+    { dispatch: false });
 
  }
