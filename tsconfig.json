@@ -15,6 +15,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@environments": ["src/environments"],
+      "@auth": ["src/app/auth"],
+      "@chat": ["src/app/chat"],
+    }
   }
 }

@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="isLoading$ | async"
+  ></mat-progress-bar>
+  <input placeholder="Usuario" type="text" formControlName="username"/>
+  <input placeholder="E-mail" type="email" formControlName="email"/>
+  <input placeholder="Contraseña" type="password" formControlName="password"/>
+  <button type="submit" mat-raised-button>Login</button>
+  <div *ngIf="error$ | async">
+    <p>Su contraseña o usuario son incorrectos</p>
+  </div>
+</form>
+<p>
+    {{ this.form.value.username }}
+</p>

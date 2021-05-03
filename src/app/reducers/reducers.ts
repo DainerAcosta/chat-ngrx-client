@@ -16,11 +16,12 @@ import { storeFreeze } from "ngrx-store-freeze";
 import * as fromAuth from "../auth/reducers/auth.reducer";
 
 export interface State {
+    // aquí se agregan los diferentes estados al store
     auth: fromAuth.State,
-    router: fromRouter.RouterReducerState<RouterStateUrl>;
+    router: fromRouter.RouterReducerState<RouterStateUrl>
 }
 
-export const  reducers: ActionReducerMap<State|any> = {
+export const reducers: ActionReducerMap<State|any> = {
     auth: fromAuth.AuthReducer,
     router: fromRouter.routerReducer
 }
