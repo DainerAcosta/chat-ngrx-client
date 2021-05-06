@@ -1,36 +1,27 @@
 import { Injectable } from '@angular/core';
-import { of, Observable, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 import { IUser } from '../../interfaces/IUser';
+import { catchError, retry } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  userFake: IUser = {
-    username: 'daineracosta',
-    email: 'dainerudea@gmail.com',
-    password: '123456',
-  };
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+  ) {}
 
-  login({ user }: any): Observable<any> {
-    let toSend = {
-      isLoading: false,
-      error: true,
-      ...user,
-    };
-    if (JSON.stringify(user) === JSON.stringify(this.userFake)) {
-      toSend = {
-        isLoading: false,
-        error: false,
-        user: user,
-      };
-    } else {
-      return throwError('Invalid user or password');
-    }
+  login(user: IUser) {
+    return this.http.post<any>(`${environment.url_api}/users/userLogin`, user).pipe(
+      retry(3),
+      catchError(this.handledError)
+    )
+  }
 
-    return of(toSend).pipe(delay(5000));
+  handledError(error) {
+    return throwError(error);
   }
 }

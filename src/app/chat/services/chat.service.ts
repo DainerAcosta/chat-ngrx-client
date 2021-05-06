@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { webSocket } from "rxjs/webSocket";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
   
-  socket: any;
+  socket: Socket;
 
   constructor() {
     this.socket = io(environment.socket.baseUrl, environment.socket.config);

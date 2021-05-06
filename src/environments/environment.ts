@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  url_api: 'http://localhost:3000',
   socket: {
     baseUrl: 'http://localhost:4000',
     config: {
